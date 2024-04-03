@@ -28,16 +28,23 @@
 
 .viewParentDiv .rightSection .productDetails {
   border: 1px solid black;
-  padding: 6px;
+  padding: 20px;
   border-radius: 6px;
   margin-bottom: 2em;
   width: 100%;
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: 500;
 }
+
 
 .viewParentDiv .rightSection .contactDetails {
   border: 1px solid black;
-  padding: 6px;
+  padding: 20px;
   border-radius: 6px;
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: 500;
 }
 
 .viewParentDiv .rightSection .contactDetails :first-child {
@@ -47,4 +54,8 @@
   color: #002f34;
   font-weight: 400;
   padding: 0;
+}
+
+.seller{
+  text-align: center;
 }

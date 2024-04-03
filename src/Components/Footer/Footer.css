@@ -1,6 +1,8 @@
 .footerParentDiv {
-  width: 100vw;
+  width: 100%;
 }
+
+
 .footerParentDiv .content {
   display: flex;
   justify-content: space-between;
@@ -24,4 +26,13 @@
 
 .footerParentDiv .footer p {
   margin: 0;
+}
+
+.list {
+  cursor: pointer;
+  color: #002F34A3;
+}
+
+.listElem:hover{
+  color: #002F34;
 }
