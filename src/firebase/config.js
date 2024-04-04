@@ -7,12 +7,12 @@ import { collection, getDocs,query, where } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAfA9P-4k6y8wu32m9-v-VxcOCxAwYJ4_I",
-  authDomain: "olx-clone-14058.firebaseapp.com",
-  projectId: "olx-clone-14058",
-  storageBucket: "olx-clone-14058.appspot.com",
-  messagingSenderId: "67528235556",
-  appId: "1:67528235556:web:39f2cf27ca4038530896b1"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
