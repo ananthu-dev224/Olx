@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-
+import { toast } from 'react-toastify';
 import { FirebaseContext, AuthContext } from '../../store/Context';
 
 import './Create.css';
@@ -12,7 +12,6 @@ const Create = () => {
   const [category, setCategory] = useState('')
   const [price, setPrice] = useState(0)
   const [img, setImg] = useState('')
-  const [err, setErr] = useState('')
   const [load,setLoad] = useState('')
 
   const history = useHistory()
@@ -25,14 +24,14 @@ const Create = () => {
     try {
       
       if(!user){
-        return setErr('Please Log in to Sell Products')
+        return toast.error('Please Log in to Sell Products')
       }
 
 
       if (name.trim() === '' || category.trim() === '' || price.trim() === '' || img === '') {
-        return setErr('Please fill out the fields')
+        return toast.error('Please fill out the fields')
       } else if (price <= 0) {
-        return setErr('Price cannot be 0 or less than 0')
+        return toast.error('Price cannot be 0 or less than 0')
       }
       setLoad('Uploading product...')
       const storageRef = storage.ref(`images/${img.name}`)
@@ -47,22 +46,19 @@ const Create = () => {
                         createdDate: new Date().toDateString()
                      }).then(() => {
                       setLoad('')
+                      toast.success('Post added!')
                          history.push('/')
                      })
                 })
       })
     } catch (error) {
       setLoad('')
-      alert("An error occured, please try again")
+      toast.error("An error occured, please try again")
       console.error(error.message)
     }
   }
 
-  if (err) {
-    setTimeout(() => {
-      setErr('')
-    }, 3000);
-  }
+ 
   return (
     <Fragment>
       <Header />
@@ -70,7 +66,6 @@ const Create = () => {
         <div className="centerDiv">
           <div style={{ textAlign: 'center', paddingBottom: '10px' }}>
             <h4>Sell a Product</h4>
-            <div className='error'><span>{err}</span></div>
           </div>
           <form>
             <label htmlFor="fname">Name</label>

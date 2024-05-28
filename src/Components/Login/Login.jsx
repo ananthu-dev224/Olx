@@ -3,21 +3,20 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useState , useContext } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { FirebaseContext } from '../../store/Context';
+import { toast } from 'react-toastify';
 import Logo from '../../olx-logo.png';
 import './Login.css';
 
 function Login() {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
-  const [error,setError] = useState('')
   const history = useHistory()
   const {auth } = useContext(FirebaseContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setError('')
     if(email.trim() === '' || password.trim() === ''){
-      return setError('Please fill the fields to log in')
+      return toast.error('Please fill the fields to log in')
     }
     try {
       await auth.signInWithEmailAndPassword(email,password)
@@ -25,25 +24,19 @@ function Login() {
     } catch (error) {
       switch(error.code){
         case 'auth/invalid-credential':
-          setError('Email or Password is Invalid')
+          toast.error('Email or Password is Invalid')
           break;
         default :
-          setError('An error occured , please try again')
+          toast.error('An error occured , please try again')
           break;
       }
     }
   }
 
-  if(error){
-    setTimeout(() => {
-       setError('')
-    }, 3000);
-  }
   return (
     <div>
       <div className="loginParentDiv">
         <img width="200px" height="200px" src={Logo} alt='logo' ></img>
-       {error &&  <div className='error'><span>{error}</span></div>}
         <form onSubmit={handleSubmit}>
           <label htmlFor="fname">Email</label>
           <br />

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useState, useContext, } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { FirebaseContext } from '../../store/Context'
+import { toast } from 'react-toastify';
 
 
 import Logo from '../../olx-logo.png';
@@ -14,16 +15,14 @@ export default function Signup() {
   const [email, setEmail] = useState('')
   const [number, setNumber] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
 
   const { auth, firestore } = useContext(FirebaseContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setError('')
     try {
       if (userName.trim() === '' || email.trim === '' || number.trim() === '' || password.trim() === '') {
-        return setError('Please fill out the fields')
+        return toast.error('Please fill out the fields')
       }
 
       const result = await auth.createUserWithEmailAndPassword(email, password)
@@ -32,39 +31,35 @@ export default function Signup() {
       await firestore.collection('users').add({
         id: user.uid,
         username: userName,
-        phone: number
+        phone: number,
+        favorites : [""]
       })
+      toast.success('Account created successfully')
       history.push('/login')
     } catch (error) {
       switch (error.code) {
         case 'auth/email-already-in-use':
-          setError('The email address is already in use');
+          toast.error('The email address is already in use');
           break;
         case 'auth/invalid-email':
-          setError('The email address is invalid');
+          toast.error('The email address is invalid');
           break;
         case 'auth/weak-password':
-          setError('The password is too weak. Please choose a stronger password');
+          toast.error('The password is too weak. Please choose a stronger password');
           break;
         default:
-          setError('An error occurred while signing up. Please try again later');
+          toast.error('An error occurred while signing up. Please try again later');
       }
 
     }
   }
 
-  if (error) {
-    setTimeout(() => {
-      setError('')
-    }, 3000);
-  }
-
+ 
 
   return (
     <div>
       <div className="signupParentDiv">
         <img width="200px" height="200px" src={Logo} alt='logo'></img><br />
-        {error &&  <div className='error'><span>{error}</span></div>}
         <form onSubmit={handleSubmit}>
           <label htmlFor="fname">Username</label>
           <br />

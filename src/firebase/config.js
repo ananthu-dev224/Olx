@@ -3,8 +3,8 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 import 'firebase/compat/storage'
-import { collection, getDocs,query, where } from "firebase/firestore";
-
+import { collection, getDocs,query, where , doc ,updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+ 
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -21,4 +21,4 @@ const auth = firebaseApp.auth();
 const firestore = firebaseApp.firestore();
 const storage = firebase.storage()
 
-export { firebaseApp, auth, firestore, collection, getDocs, query, where, storage };
+export { firebaseApp, auth, firestore, collection, getDocs, query, where, storage , doc ,updateDoc, arrayUnion, arrayRemove};

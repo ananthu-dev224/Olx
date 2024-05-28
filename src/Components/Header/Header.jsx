@@ -24,9 +24,9 @@ function Header() {
           <OlxLogo></OlxLogo>
         </div>
         <div className="placeSearch">
-          <Search></Search>
-          <input type="text" />
-          <Arrow></Arrow>
+          <input type="hidden" />
+          <Arrow></Arrow>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <h5>India</h5>
         </div>
         <div className="productSearch">
           <div className="input">
